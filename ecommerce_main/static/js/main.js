@@ -8,6 +8,6 @@ var items = document.getElementsByClassName("item-order"); //returns a list of t
 for (i = 0; i < items.length; i++)
 {
     url.searchParams.set("order", items[i].value); //(name, value)
-    items[i].value = url.value;
+    items[i].value = url.href;
 };
 
