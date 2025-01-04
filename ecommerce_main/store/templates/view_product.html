@@ -3,48 +3,193 @@
 
 {% block body %}
 
-<h3>{{ product.name }}</h3> 
+<main class="principal principal--padding-b principal--gap">
+    <section class="s-produto">
+      <div class="s-produto__carrossel">
+        <div class="s-produto__carrossel-itens">
+          <div class="s-produto__carrossel-img">
+            <img
+              src="{{ product.image.url }}"
+              alt="Imagem Carrossel 1"
+            />
+          </div>
+          <div class="s-produto__carrossel-img" style="overflow: hidden;"> <!--Avoids the size itself of the image of getting big-->
+            <img
+              src="{{ product.image.url }}"
+              alt="Imagem Carrossel 2"
+              style="transform: scale(1.6);"
+            />
+          </div>
+        </div>
 
-{% if has_stock %}
+        <div class="s-produto__carrossel-botoes">
+          <div
+            class="s-produto__carrossel-botao s-produto__carrossel-botao--selecionado"
+          ></div>
+          <div class="s-produto__carrossel-botao"></div>
+          <div class="s-produto__carrossel-botao"></div>
+          <div class="s-produto__carrossel-botao"></div>
+          <div class="s-produto__carrossel-botao"></div>
+        </div>
+      </div>
 
-<img src="{{ product.image.url }}" width = "300" height = "450"> <!--returns the url of the image -->
-<p>Product: {{ product.name }}</p>  <!-- Originally, what will be displayed in product is what is returned in its respective __str__ function on the models file-->
-<p>Price: {{ product.price }}</p>
+      <div class="s-produto__informacoes">
+        <div class="s-produto__breadcrumbs">
+          <span><a href="{% url 'store' %}">Loja</a></span>
+          <span><a href="{% url 'store' product.category.slug %}">{{ product.category.name }}</a></span>
+          <span><a href="{% url 'store' %}{{ product.category.slug }}-{{ product.product_type.slug }}">{{ product.product_type.name }}</a></span>
+          <span>
+            <p>{{ product.name }}</p>
+          </span>
+        </div>
 
-{% if selected_color %}
+        <div class="s-produto__infos">
+          <h1 class="s-produto__titulo">{{ product.name }}</h1>
 
-Color: {{ selected_color.name }}
+          <p class="s-produto__preco">R$ {{ product.price }}</p>
 
-{% endif %}
+          <div class="s-produto__cor">
+            <p class="s-produto__cor-nome">Cor: <span>{{ selected_color.name }}</span></p>
+            <div class="s-produto__cores">
+                {% for color in colors %}
+                <a
+                href = "{% url 'view_product' product.id color.id %}"
+                class="s-produto__cores-item"
+                style="background-color: {{ color.code }};"
+              ></a>
+                {% endfor %}
+            </div>
+          </div>
 
-{% for color in colors %}
-
-<a href = "{% url 'view_product' product.id color.id %}"> <!--passing the url of 'view_product' determined in the name parameter of the urls.py, followed by the product.id and the color.id -->
-    <i class="fa-solid fa-circle" style="color: {{ color.code }}"></i> <!--False positive, html doesnt recognize the django format but it is correct -->
-</a>
-{% endfor %}
-
-
-{% if sizes %}
-<form method = "POST" action = "{% url 'add_to_cart' product.id %}"> <!--Forms in django need to specify its method, action (where it will be sent)-->
-    {% csrf_token %} <!--Protects (by generating a unique token) the forms from hackers trying to replicate it-->
-    <p>Select the size:</p>
-    {% for size in sizes %}
-    <input type="radio" name="size" value="{{ size }}"> <!--Radio button -> choose one option, all connected to the same name. Value is what is sent to the website-->
-    <label for= "{{ size }}">{{ size }}</label> <!--Button text, for tag vinculates each button the the size-->
-    {% endfor %}
-
-    <input type="hidden" name="color" value="{{ selected_color.id }}">
-    <button type = "submit">Add to Cart</button> <!--Button type submit is used to send the form its in-->
-</form>
-{% endif %}
-
-
-{% else %}
-
-<p>Out of Stock</p>
-
-{% endif %}
+          {% if has_stock %}
+            {% if sizes %}
+            <form method = "POST" action = "{% url 'add_to_cart' product.id %}">
+                {% csrf_token %}
+                <div class="s-produto__tamanho">
+                    <div class="s-produto__tamanhos"> 
+                        {% for size in sizes %}
+                        <div class="menu__tamanho"> <!--Needs to have menu__tamanho class for the javascript-->
+                            <div class="s-produto__tamanhos-item">{{ size }}</div>
+                            <input class="menu__checkbox" type="radio" name="size" value="{{ size }}"> <!--menu__checkbox used in the produto.js-->
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <input type="hidden" name="color" value="{{ selected_color.id }}">
+                <button type="submit" class="s-produto__adicicionar">Adicionar à sacola</button>
+            </form>
+            {% endif %}
+          {% else %}
+          <h3>Item fora de estoque</h3>
+          {% endif %}
+        </div>
 
 
- {% endblock %}
+        <div class="s-produto__descricao">
+          <p class="s-produto__descricao-titulo">Descrição do produto</p>
+          <div class="s-produto__descricao-textos">
+            <p>
+              {{ product.description }}
+            </p>
+            <p>
+              COMPOSIÇÃO <br />
+                {{ product.composition }}
+            </p>
+            <p>
+              CÓDIGO DO PRODUTO <br />
+              Ref: <span>{{ product.id }}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="similares">
+      <h2 class="similares__titulo">
+        Gostou desse produto? Veja itens similares
+      </h2>
+
+      <div class="similares__container">
+        <a
+          href="https://www.usereserva.com/camiseta-silk-folhagem0078068/p?skuId=499434"
+          class="produto"
+        >
+          <div class="produto__imagem">
+            <img
+              src="https://lojausereserva.vtexassets.com/arquivos/ids/8404940-2400-auto?v=638358284054500000&width=2400&height=auto&aspect=true"
+              alt="Imagem do Produto"
+            />
+          </div>
+          <div class="produto__textos">
+            <p class="produto__titulo">Camiseta Silk Folhagem</p>
+            <div class="produto__preco">
+              <p class="produto__avista">R$ 349<sup>,00</sup></p>
+              <p class="produto__parcelado">5x R$ 69<sup>,80</sup></p>
+            </div>
+          </div>
+        </a>
+
+        <a
+          href="https://www.usereserva.com/camiseta-silk-folhagem0078068/p?skuId=499434"
+          class="produto"
+        >
+          <div class="produto__imagem">
+            <img
+              src="https://lojausereserva.vtexassets.com/arquivos/ids/8404940-2400-auto?v=638358284054500000&width=2400&height=auto&aspect=true"
+              alt="Imagem do Produto"
+            />
+          </div>
+          <div class="produto__textos">
+            <p class="produto__titulo">Camiseta Silk Folhagem</p>
+            <div class="produto__preco">
+              <p class="produto__avista">R$ 349<sup>,00</sup></p>
+              <p class="produto__parcelado">5x R$ 69<sup>,80</sup></p>
+            </div>
+          </div>
+        </a>
+
+        <a
+          href="https://www.usereserva.com/camiseta-silk-folhagem0078068/p?skuId=499434"
+          class="produto"
+        >
+          <div class="produto__imagem">
+            <img
+              src="https://lojausereserva.vtexassets.com/arquivos/ids/8404940-2400-auto?v=638358284054500000&width=2400&height=auto&aspect=true"
+              alt="Imagem do Produto"
+            />
+          </div>
+          <div class="produto__textos">
+            <p class="produto__titulo">Camiseta Silk Folhagem</p>
+            <div class="produto__preco">
+              <p class="produto__avista">R$ 349<sup>,00</sup></p>
+              <p class="produto__parcelado">5x R$ 69<sup>,80</sup></p>
+            </div>
+          </div>
+        </a>
+
+        <a
+          href="https://www.usereserva.com/camiseta-silk-folhagem0078068/p?skuId=499434"
+          class="produto"
+        >
+          <div class="produto__imagem">
+            <img
+              src="https://lojausereserva.vtexassets.com/arquivos/ids/8404940-2400-auto?v=638358284054500000&width=2400&height=auto&aspect=true"
+              alt="Imagem do Produto"
+            />
+          </div>
+          <div class="produto__textos">
+            <p class="produto__titulo">Camiseta Silk Folhagem</p>
+            <div class="produto__preco">
+              <p class="produto__avista">R$ 349<sup>,00</sup></p>
+              <p class="produto__parcelado">5x R$ 69<sup>,80</sup></p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+
+  <script type="text/javascript" src="{% static 'js/produto.js' %}"></script>
+
+{% endblock %}

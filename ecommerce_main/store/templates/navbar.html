@@ -30,11 +30,12 @@
                 </a>
                 <div class="cabecalho__expansao-tipos">
                     <a
+                      style="width: 25%;"
                       class="cabecalho__imagem-link"
-                      href="https://www.usereserva.com/colecao-reserva/adulto-top-camisetas"
+                      href="{% url 'store' item.category.slug %}"
                     >
                       <img
-                        src="https://lojausereserva.vtexassets.com/assets/vtex.file-manager-graphql/images/a3e95dbb-4c70-4dfe-9dc9-8fb997e4887b___9eafa5e48e1c6ce4a9c97682c2249c53.jpg"
+                        src="{{ item.category.image.url }}"
                         alt="Imagem do menu secundário"
                         class="cabecalho__imagem"
                       />

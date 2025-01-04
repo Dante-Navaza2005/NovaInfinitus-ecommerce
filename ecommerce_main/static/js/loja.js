@@ -23,7 +23,6 @@ checkboxes.forEach(function(checkbox) {
         var adjacentDiv = this.previousElementSibling; // Get the previous sibling (the div)
         if (this.checked) {
             adjacentDiv.style.color = '#6495ED'; // Set the color of the currently selected one
-            adjacentDiv.style.borderColor = '#6495ED'; // Set the color of the currently selected one
         }
     });
 });
@@ -42,7 +41,7 @@ checkboxes.forEach(function(checkbox) {
         var adjacentDiv = this.previousElementSibling.previousElementSibling; // Get the previous sibling (the div)
         if (this.checked) {
             adjacentDiv.style.color = '#6495ED'; // Set the color of the currently selected one
-            adjacentDiv.style.backgroundColor = '#6495ED'; // Set the color of the currently selected one
+            adjacentDiv.style.backgroundColor = 'black'; // Set the color of the currently selected one
         }
     });
 });
@@ -55,13 +54,14 @@ checkboxes.forEach(function(checkbox) {
         
         adjacentDivs.forEach(function(div) {
             div.style.color = ''; // Reset all adjacent div colors
-            div.style.borderColor = ''; // Reset all adjacent div colors
+            div.style.backgroundColor = ''; // Reset all adjacent div colors
+            div.style.borderColor = ''; // Reset all adjacent div
         });
 
         var adjacentDiv = this.previousElementSibling; // Get the previous sibling (the div)
         if (this.checked) {
-            adjacentDiv.style.color = '#6495ED'; // Set the color of the currently selected one
-            adjacentDiv.style.borderColor = '#6495ED'; // Set the color of the currently selected one
+            adjacentDiv.style.color = 'white'; // Set the color of the currently selected one
+            adjacentDiv.style.backgroundColor = 'black'; // Set the color of the currently selected one
         }
     });
 });
@@ -79,8 +79,8 @@ checkboxes.forEach(function(checkbox) {
 
         var adjacentDiv = this.previousElementSibling.previousElementSibling; // Get the previous sibling (the div)
         if (this.checked) {
-            adjacentDiv.style.color = '#6495ED'; // Set the color of the currently selected one
-            adjacentDiv.style.backgroundColor = '#6495ED'; // Set the color of the currently selected one
+            adjacentDiv.style.color = 'black'; // Set the color of the currently selected one
+            adjacentDiv.style.backgroundColor = 'black'; // Set the color of the currently selected one
         }
     });
 });

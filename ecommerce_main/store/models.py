@@ -66,6 +66,7 @@ class Client(models.Model): #? dont use plural names as django automatically put
 class Categoric(models.Model):
     name = models.CharField(max_length=200, null=True, blank=True, unique=True)
     slug = models.CharField(max_length=200, null=True, blank=True, unique=True)
+    image = models.ImageField(upload_to=dynamic_upload_path, null=True, blank=True) #? image shown in the navbar
 
     def __str__(self) :
         return str(self.name)
@@ -84,6 +85,9 @@ class Product(models.Model):
     active = models.BooleanField(default=True)
     category = models.ForeignKey(Categoric, blank=True, null=True, on_delete=models.SET_NULL) #? primary key is a id associated to only that category,ForeignKey relates a category to another category with a diferent id. One product has only one category but one category has many products
     product_type = models.ForeignKey(Type, blank=True, null=True, on_delete=models.SET_NULL) #? When you delete a type or category, it will only set that product type to null, and not all the others when using CASCADE
+    description = models.CharField(max_length=800, null=True, blank=True) 
+    composition = models.CharField(max_length=800, null=True, blank=True) 
+    
 
     class Meta:
         constraints = [
