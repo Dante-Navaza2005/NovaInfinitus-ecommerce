@@ -147,7 +147,17 @@
             </div>
             <p class="produtos__subtitulo">Ordenar por:</p>
             <select class="produtos__select" onchange="redirectToPage()">
-              <option value="">Selecone uma opção</option> <!-- Necessary to start by default -->
+              
+              {% if order == "highest-price" %}
+              <option value="" selected>Maior preço</option> <!-- Necessary to start by default -->
+              {% elif order == "lowest-price" %}
+              <option value="" selected>Menor preço</option> <!-- Necessary to start by default -->
+              {% elif order == "most-sold" %}
+              <option value="" selected>Mais Vendidos</option> <!-- Necessary to start by default -->
+              {% else %}
+              <option value="" selected>Selecone uma opção</option> <!-- Necessary to start by default -->
+              {% endif %}
+
               <option class="item-order" value="highest-price">Maior preço</option> <!--Used in the main.js javascript, it returns the value used in the js-->
               <option class="item-order" value="lowest-price">Menor preço</option>
               <option class="item-order" value="most-sold">Mais Vendidos</option>

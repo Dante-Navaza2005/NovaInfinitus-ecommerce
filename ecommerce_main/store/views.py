@@ -50,7 +50,7 @@ def store(request, filter = None):
     order = request.GET.get('order') #? gets the parameter value of 'order'
     products = order_products(products, order)
 
-    context = {"products" : products, "min_price" : min_price, "max_price" : max_price, "sizes" : sizes, "categories" : categories, "types" : types} 
+    context = {"products" : products, "min_price" : min_price, "max_price" : max_price, "sizes" : sizes, "categories" : categories, "types" : types, "order" : order} 
     return render(request, 'store.html', context) 
 
 def add_to_cart(request, product_id):
