@@ -1893,6 +1893,11 @@ img {
 .tabela__imagem {
   max-width: 7rem;
 }
+.pedido__individual{
+  display: flex;
+  flex-flow: row wrap;
+  margin-bottom: 5rem;
+}
 .tabela__produto {
   display: flex;
   flex-flow: row nowrap;
@@ -1906,7 +1911,8 @@ img {
   flex-flow: column nowrap;
   align-items: stretch;
   justify-content: start;
-  gap: 0.6rem;
+  gap: 0.8rem;
+  margin-right: 3rem;
 }
 .subtotal {
   display: flex;
@@ -2266,18 +2272,29 @@ img {
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
 }
-@media (max-width: 30em) {
+@media (max-width: 40em) {
   .pedido__cabecalho {
     flex-direction: column;
     padding: 2rem;
   }
+  .pedido__individual,.pedido__corpo {
+    display:flexbox;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 0;
+  }
+  .tabela__produto-textos {
+    margin-right: 0;
+    margin-top: 1rem;
+  }
 }
 .pedido__corpo {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   align-items: stretch;
   justify-content: start;
-  gap: 1.6rem;
+  gap: 2.1rem;
   padding: 2.5rem;
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;

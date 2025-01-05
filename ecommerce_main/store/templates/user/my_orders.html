@@ -3,27 +3,64 @@
 
 {% block body %}
 
-<h3>
-    My orders
-</h3>
-<a href="{% url 'your_account' %}">My account</a>
+<main class="principal">
+    <section class="conta">
+      <div class="conta__container">
+        <div class="checkout__titulos">
+          <p class="checkout__titulo">My Orders</p>
+        </div>
 
-{% for order in orders %}
-<div style="display: flex;">
-    <p>Date: {{ order.end_date }}</p>
-    <p>Order ID: {{ order.id }}</p>
-    <p>Transaction ID: {{ order.id_transaction }}</p>
-    <p>Total Price: {{ order.total_cost }}</p>
-    <p>Adress: {{ order.adress.zip_code }}, {{ order.adress.city }}-{{ order.adress.state }}</p>
+        {% for order in orders %}
+        <div class="pedido">
+          <div class="pedido__cabecalho">
+            <div>
+              <p><b>Date:</b></p>
+              <p>{{ order.end_date }}</p>
+            </div>
 
-    {% for item in order.items %}
-        <img src= "{{ item.itemstock.product.image.url }}" width="50" height="75">
-        <p>Product: {{ item.itemstock.product.name }}</p>
-        <p>Quantity: {{item.quantity }}</p>
-        <p>Total price: {{item.total_price }}</p>
-    {% endfor %}
-</div>
-<hr>
-{% endfor %}
+            <div>
+              <p><b>Total</b></p>
+              <p>R$ {{ order.total_cost }}</p>
+            </div>
+
+            <div>
+              <p><b>Order ID</b></p>
+              <p>{{ order.id }}</p>
+            </div>
+
+            <div>
+              <p><b>Transaction ID</b></p>
+              <p style="word-wrap: break-word;">{{ order.id_transaction }}</p>
+            </div>
+            
+          </div>
+          
+          <div class="pedido__corpo">
+            {% for item in order.items %}
+            <div class="pedido__individual">
+                <div class="tabela__imagem">
+                <img
+                    src="{{ item.itemstock.product.image.url }}"
+                    alt="{{ item.itemstock.product.name }}"
+                />
+                </div>
+                <div class="tabela__produto-textos">
+                <p><b>{{ item.itemstock.product.name }}</b></p>
+                <p><b>Size:</b> {{ item.itemstock.size }}</p>
+                <p><b>Color:</b> {{ item.itemstock.color }}</p>
+                <p><b>Quantity:</b> {{ item.quantity }}</p>
+                <p><b>Total price:</b> R$ {{ item.total_price }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <p><b>Adress: {{ order.adress.zip_code }}, {{ order.adress.city }}-{{ order.adress.state }}</b></p>
+    </div>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+
+
 
 {% endblock %}
