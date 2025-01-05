@@ -185,6 +185,11 @@ img {
   width: 100%;
   max-width: 81rem;
 }
+.senha_aviso{
+  font-weight: 400;
+  color: #626262b9;
+  font-size: 1.2rem;
+}
 @media (max-width: 59.375em) {
   .cabecalho__navegacao {
     transition: transform 0.5s ease-in-out;
