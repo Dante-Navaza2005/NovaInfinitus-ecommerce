@@ -96,6 +96,14 @@ img {
   background-color: #fff;
   z-index: 999;
 }
+.esquecer_senha {
+  color: rgba(98, 98, 98, 0.738);
+  text-decoration: none;
+}
+.esquecer_senha:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 59.375em) {
   .cabecalho {
     padding: 0 3.12rem;
@@ -307,7 +315,7 @@ img {
   text-transform: none;
   font-weight: 400;
   color: #626262;
-  line-height: 2.5rem;
+  line-height: 2.4rem;
 }
 .cabecalho__link--tipo:hover {
   border-bottom: none;
@@ -2113,6 +2121,7 @@ img {
 .checkout_acerto,.checkout_erro {
   color: #228B22;
   font-size: 2.30rem;
+  align-self: center;
 }
 .checkout_erro {
   color: #881111;
@@ -2196,6 +2205,7 @@ img {
 .conta__item {
   position: relative;
   width: calc(50% - 0.8rem);
+  margin-bottom: 1rem;
 }
 @media (max-width: 30em) {
   .conta__item {

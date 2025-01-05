@@ -19,6 +19,45 @@
     <button type="submit">Login</button>
 </form>
 
-<a href="{% url 'create_account' %}">Don't have a account? Create one</a>
-<a href="{% url 'password_reset' %}">I forgot my password</a>
+
+
+
+
+<main class="principal">
+    <section class="conta">
+
+      <div class="conta__container">
+        <div class="checkout__titulos">
+          <p class="checkout__titulo">Log In</p>
+        </div>
+
+        {% if error %}
+        <p class="checkout_erro">Invalid credentials, try again or recover your password.</p>
+        {% endif %}
+
+        <form
+          class="conta__form"
+          action="{% url 'perform_login' %}"
+          method="post"
+        >
+        {% csrf_token %}
+          
+        <div class="conta__item">
+          <label for="email">E-mail</label>
+          <input name="email" type="email" placeholder="Email"/>
+        </div>
+        <div class="conta__item">
+            <label for="password">Password</label>
+            <input name="password" type="password" placeholder="password"/>
+        </div>
+
+          <button class="subtotal__botao" type="submit">
+            Log In
+          </button>
+        </form>
+        <a class="esquecer_senha" href="{% url 'create_account' %}">Don't have a account? Create one</a>
+        <a class="esquecer_senha" href="{% url 'password_reset' %}">Forgot your password?</a>
+      </div>
+    </section>
+</main>
 {% endblock %}
