@@ -23,7 +23,7 @@
             {% for item in categories_with_types %}
             <li class="cabecalho__item-lista">
                 <a
-                  class="cabecalho__link"
+                  class="cabecalho__link cabecalho_link-media"
                   href="{% url 'store' item.category.slug %}"
                 >
                   {{ item.category.name }}
