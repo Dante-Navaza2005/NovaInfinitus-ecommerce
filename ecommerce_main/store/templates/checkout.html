@@ -3,51 +3,157 @@
 
 {% block body %}
 
-<h3>
-    Checkout
-</h3>
 
-<a href = "{% url 'cart' %}">Return to Cart</a>
+<main class="principal">
+    <title>Checkout | Reserva</title>
 
-<h4>Order ID: {{ order.id }}</h4>
-<p>Total Price: R$ {{ order.total_cost }}</p>
-<p>Total Quantity: {{ order.total_quantity }}</p>
+    <section class="secao-checkout">
+      <a href="{% url 'cart' %}" class="checkout__botao">Return to the Cart</a>
 
-{% if error %}
-
-    {% if error == "conflicting_cost" %}
-        <p>Invalid product total cost. Try again or return to the cart.</p>
-    {% endif %}
+      <div class="checkout">
         
-    {% if error == "adress" %}
-        <p>Select a delivery adress to continue.</p>
-    {% endif %}
-        
-    {% if error == "email" %}
-        <p>Fill in your email to continue.</p>
-    {% endif %}
-{% endif %}
 
-<form method="POST" action="{% url 'finish_order' order.id %}">
+        <form
+          class="checkout__form"
+          action="{% url 'finish_order' order.id %}"
+          method="post"
+        >
         {% csrf_token %}
-        <h3>Select the delivery address</h3>
-        <a href="{% url 'add_address' %}">delivery address</a>
-        <br>
-    {% for address in addresses %}
-        <input type="radio" name="adress" value="{{ address.id }}"> <!--Radio button -> choose one option, all connected to the same name. Value is what is sent to the website-->
-        <label for= "{{ address.id }}">{{ address.city }} - {{ address.state }} - {{ address.street }} - {{ address.number }} - {{ address.apartment }} - {{ address.zip_code }}</label> <!--Button text, for tag vinculates each button the the size-->
-        <br>
-    {% endfor %}
 
-    {% if not request.user.is_authenticated %} 
-        <hr>
-        <h4>Fill in your email to finish your order</h4>
-        <input type="email" name="email" placeholder="email"> <!--Placeholder is the transparent text that appears before-->
-    {% endif %}
-    <hr>
-    <input type="hidden" value="{{ order.total_cost }}" name="total">
-    <button type="submit">Confirm Order - R$ {{ order.total_cost }}</button>
-</form>
+          <!--Showing different divs if the user is authenticated-->
+          {% if not request.user.is_authenticated %} 
+          <div
+            class="checkout__secao-entrega-login"
+          >
+            <div class="checkout__secao-login">
+              <div class="checkout__titulos">
+                <p class="checkout__titulo">Identifique-se</p>
+              </div>
+
+              <div class="checkout__endereco-item">
+                <label for="email">E-mail</label>
+                <input name="email" type="email" />
+              </div>
+            </div>
+
+            <div class="checkout__secao-entrega">
+              <div class="checkout__titulos">
+                <p class="checkout__titulo">Endereço de entrega</p>
+                <a
+                  class="checkout__botao checkout__botao--entrega"
+                  href="{% url 'add_address' %}"
+                  type="button"
+                >
+                Add delivery address
+                </a>
+              </div>
+
+              <div class="checkout__endereco-cadastrado">
+                {% for address in addresses %}
+                <div class="checkout__pagamento-item">
+                  <input type="radio" name="adress" value="{{ address.id }}" />
+                  <label for="{{ address.id }}"
+                    >{{ address.street }}, nº{{ address.number }}, {{ address.apartment }}, ZIP Code{{ address.zip_code }}, City {{ address.city }}-{{ address.state }}</label
+                  >
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          {% else %}
+
+          <div
+            class="checkout__secao-entrega-login checkout__secao-entrega-login--logado"
+          >
+
+          <div class="checkout__secao-entrega">
+            <div class="checkout__titulos">
+              <p class="checkout__titulo">Endereço de entrega</p>
+              <a
+                class="checkout__botao checkout__botao--entrega"
+                href="{% url 'add_address' %}"
+                type="button"
+              >
+              Add delivery address
+              </a>
+            </div>
+
+            <div class="checkout__endereco-cadastrado">
+              {% for address in addresses %}
+              <div class="checkout__pagamento-item">
+                <input type="radio" name="adress" value="{{ address.id }}" />
+                <label for="{{ address.id }}"
+                  >{{ address.street }}, nº{{ address.number }}, {{ address.apartment }}, ZIP Code{{ address.zip_code }}, City {{ address.city }}-{{ address.state }}</label
+                >
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          </div>
+          {% endif %}
+
+          <div class="checkout__secao-pagamento-infos">
+            <div class="checkout__secao-pagamento">
+              <div class="checkout__titulos">
+                <p class="checkout__titulo">Formas de Pagamento</p>
+              </div>
+
+              <div class="checkout__pagamento-formas">
+                <div class="checkout__pagamento-item">
+                  <p for="cartao_credito">Cartão de Crédito</p>
+                </div>
+
+                <div class="checkout__pagamento-item">
+                  <p for="boleto">Boleto</p>
+                </div>
+
+                <div class="checkout__pagamento-item">
+                  <p for="pix">PIX</p>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="checkout__secao-infos">
+              <div class="checkout__titulos checkout__titulos--mb">
+                <p class="checkout__titulo">Summary</p>
+              </div>
+
+              <div class="subtotal__infos">
+                <p>Total Quantity</p>
+                <p>{{ order.total_quantity }}</p>
+              </div>
+
+              <div class="subtotal__infos subtotal__infos--sborda">
+                <p>Total Cost</p>
+                <p>R$ {{ order.total_cost }}</p>
+              </div>
+              <input type="hidden" value="{{ order.total_cost }}" name="total">
+
+
+              <button style="margin-bottom: 2rem;" class="subtotal__botao" type="submit">
+                Confirm Order
+              </button>
+              {% if error %}
+                {% if error == "conflicting_cost" %}
+                    <p class="checkout__erro">Invalid product total cost. Try again or return to the cart.</p>
+                {% endif %}
+                    
+                {% if error == "adress" %}
+                    <p class="checkout_erro">Select a delivery adress to continue.</p>
+                {% endif %}
+                    
+                {% if error == "email" %}
+                    <p class="checkout_erro">Fill in your email to continue.</p>
+                {% endif %}
+              {% endif %}
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
 
 
 {% endblock %}

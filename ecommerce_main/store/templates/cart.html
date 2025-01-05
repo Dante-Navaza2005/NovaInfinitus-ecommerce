@@ -4,6 +4,8 @@
 {% block body %}
 
 <main class="principal">
+  <title>Cart | Reserva</title>
+
     {% if existing_client %}
     <section class="carrinho">
       <div class="sacola">
@@ -89,8 +91,26 @@
 
     </section>
     {% else %}
-    <h3>Your cart is empty</h3>
-    <a href = "{% url 'store' %}">Visit our store</a>
+
+    <section class="conta">
+
+      <div style="align-items: center;" class="conta__container">
+
+        <img
+        class="cabecalho__menu-icone"
+        src="{% static 'images/empty_cart.png' %}"
+        alt="Ícone Menu"
+        style="width: 6vw; height: 6vw; max-width:70px; max-height:70px; min-width:40px; min-height:40px;"
+      />
+        <div class="checkout__titulos">
+          <p class="checkout__titulo">Your cart is empty</p>
+        </div>
+          <button class="subtotal__botao" type="button" onclick="location.href='{% url 'store' %}'">
+            Visit our store
+          </button>
+      </div>
+    </section>
+
     {% endif %}
   </main>
 

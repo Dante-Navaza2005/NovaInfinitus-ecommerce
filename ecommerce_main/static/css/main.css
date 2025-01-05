@@ -2141,6 +2141,8 @@ img {
   color: #228B22;
   font-size: 2.30rem;
   align-self: center;
+  word-wrap: break-word;
+  text-align: center;
 }
 .checkout_erro {
   color: #881111;
@@ -2159,7 +2161,6 @@ img {
   align-items: stretch;
   justify-content: start;
   gap: 1rem;
-  display: none;
 }
 .checkout__endereco-item {
   position: relative;
