@@ -255,7 +255,8 @@ def view_product(request, product_id, id_color = None) :
             selected_color = Color.objects.get(id = id_color) #? gets the color object from the Color class
             item_stock = ItemStock.objects.filter(product = product, quantity__gt = 0, color__id = id_color) #? gets the color id  attribute from the Color class (that is automatically created)
             sizes = {item.size for item in item_stock} #? gets the sizes of all products
-    context = {'product': product, "has_stock" : has_stock, "colors" : colors, "sizes" : sizes, "selected_color" : selected_color}
+    similars = Product.objects.filter(category__id=product.category.id, product_type__id=product.product_type.id).exclude(id=product.id)[:4] #? gets all products that are not the same as the current one
+    context = {'product': product, "has_stock" : has_stock, "colors" : colors, "sizes" : sizes, "selected_color" : selected_color, "similars" : similars}
     return render(request, 'view_product.html', context)
 
 def create_account(request):

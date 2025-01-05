@@ -3,68 +3,111 @@
 
 {% block body %}
 
-<h3>
-    Your account
-</h3>
-<a href="{% url 'my_orders' %}">My orders</a>
+<main class="principal">
+    <section class="conta">
+        {% if altered_account %}
+        <p class="checkout_acerto">Account information succesfully saved</p>
+        {% endif %}
+        {% if altered_password %}
+        <p class="checkout_acerto">Password succesfully altered</p>
+        {% endif %}
 
-<a href="{% url 'perform_logout' %}">Logout</a>
+        {% if error == "invalid_current_password" %}
+        <p class="checkout_erro">Wrong current password</p>
+        {% endif %}
 
-{% if altered_account %}
-<p>Account information succesfully saved</p>
-{% endif %}
-{% if altered_password %}
-<p>Password succesfully altered</p>
-{% endif %}
+        {% if error == "different_passwords" %}
+        <p class="checkout_erro">Password confirmation doesn't match</p>
+        {% endif %}
 
-{% if error == "invalid_current_password" %}
-<p>Wrong current password</p>
-{% endif %}
+        {% if error == "email_exists" %}
+        <p class="checkout_erro">Email in use</p>
+        {% endif %}
 
-{% if error == "different_passwords" %}
-<p>Password confirmation doesn't match</p>
-{% endif %}
+        {% if error == "invalid_changes" %}
+        <p class="checkout_erro">Invalid changes, try again</p>
+        {% endif %}
 
-{% if error == "email_exists" %}
-<p>Email in use</p>
-{% endif %}
+        {% if error == "weak_password" %}
+        <p class="checkout_erro">Invalid password. Ensure it has 8 to 20 characters, with least one upper, lower, numeric and special</p>
+        {% endif %}
 
-{% if error == "invalid_changes" %}
-<p>Invalid changes, try again</p>
-{% endif %}
+        {% if error == "same_password" %}
+        <p class="checkout_erro">New password is the same as the previous one</p>
+        {% endif %}
 
-{% if error == "weak_password" %}
-<p>Invalid password. Ensure it has 8 to 20 characters, with least one upper, lower, numeric and special</p>
-{% endif %}
+      <div class="conta__container">
+        <div class="checkout__titulos">
+          <p class="checkout__titulo">Dados pessoais</p>
+        </div>
 
-{% if error == "same_password" %}
-<p>New password is the same as the previous one</p>
-{% endif %}
+        <form
+          class="conta__form"
+          action="{% url 'your_account' %}"
+          method="post"
+        >
+        {% csrf_token %}
+
+          <div class="conta__item">
+            <label for="name">Nome</label>
+            <input name="name" type="text" placeholder="Nome Completo" 
+            {% if request.user.client.name %}
+            value="{{ request.user.client.name }}"
+            {% endif %}/>
+          </div>
+
+          
+          <div class="conta__item">
+              <label for="phone">Telefone</label>
+              <input name="phone" type="number" placeholder="Telefone" value="{{ request.user.client.phone }}"/>
+            </div>
+            <div class="conta__item conta__item--email">
+              <label for="email">E-mail</label>
+              <input name="email" type="email" placeholder="Email" value="{{ request.user.email }}"/>
+            </div>
+
+          <button class="subtotal__botao" type="submit">
+            Salvar alterações
+          </button>
+        </form>
+      </div>
+      
+      
+      
+      <div class="conta__container">
+        <div class="checkout__titulos">
+          <p class="checkout__titulo">Alterar Senha</p>
+        </div>
+
+        <form
+          class="conta__form"
+          action="{% url 'your_account' %}"
+          method="post"
+        >
+        {% csrf_token %}
+          <div class="conta__item">
+            <label for="current_password">Senha Atual</label>
+            <input name="current_password" type="password" placeholder="Senha Atual"/>
+          </div>
+          
+          <div class="conta__item">
+            <label for="new_password">Senha Nova</label>
+            <input name="new_password" type="password" placeholder="Senha Nova"/>
+          </div>
+          
+          <div class="conta__item">
+            <label for="confirm_new_password">Confirmar Senha</label>
+            <input name="confirm_new_password" type="password" placeholder="Senha Nova"/>
+          </div>
 
 
+          <button class="subtotal__botao" type="submit">
+            Salvar alterações
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
 
-<h3>Account information</h3>
-<form method="POST" action="{%url 'your_account' %}">
-    {% csrf_token %}
-    <input type="text" name="name" placeholder="Full Name" 
-    {% if request.user.client.name %}
-    value="{{ request.user.client.name }}"
-    {% endif %}>
-    <input type="email" name="email" placeholder="Email" value="{{ request.user.email }}"> <!--Initializing the textbox with the users email (all users have a email associated)-->
-    <input type="number" name="phone" placeholder="Telephone" value="{{ request.user.client.phone }}">
-    <button type="submit">Save</button>
-</form>
-
-<hr>
-
-<h3>Change Password</h3>
-<form method="POST" action="{% url 'your_account' %}">
-    {% csrf_token %}
-    <input type="password" name="current_password" placeholder="Current Password">
-    <input type="password" name="new_password" placeholder="New Password">
-    <input type="password" name="confirm_new_password" placeholder="Confirm new password">
-    <button type="submit">Change Password</button>
-
-</form>
 
 {% endblock %}
