@@ -1890,6 +1890,14 @@ img {
   border-radius: 4px;
   font-size: 1.6rem;
 }
+.tabela__quantidade button:hover {
+  background-color: #000;
+  color: #fff;
+}
+.tabela__quantidade button:focus {
+  border: solid 1px #75ff0b;
+}
+
 .tabela__imagem {
   max-width: 7rem;
 }

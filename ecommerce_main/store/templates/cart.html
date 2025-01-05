@@ -3,51 +3,96 @@
 
 {% block body %}
 
-{% if existing_client %}
-
-    <h3>Cart</h3>
-
-    <h4>Order ID: {{ order.id }}</h4>
-    <p>Total Price: R$ {{ order.total_cost }}</p>
-    <p>Total Quantity: {{ order.total_quantity }}</p>
-    {% for item in items_ordered %}
-    <p>
-        <img src="{{ item.itemstock.product.image.url }}" width = "60" height = "80">
-        Product: {{ item.itemstock.product.name }}; 
-        Color: {{ item.itemstock.color.name }}; 
-        Size: {{ item.itemstock.size }}; 
-        
-        <div style="display:flex;"> <!--Makes everything in the same line-->
-            Quantity: 
-            <!--! REMOVE BUTTON -->
-            <form method = "POST" action = "{% url 'remove_from_cart' item.itemstock.product.id %}"> <!--? Changed the product reference to the one being used in the code above-->
-                {% csrf_token %} <!--Protects (by generating a unique token) the forms from hackers trying to replicate it-->
-                <input type="hidden" name="size" value="{{ item.itemstock.size }}">
-            <input type="hidden" name="color" value="{{ item.itemstock.color.id }}">
-            <button type="submit">-</button> 
-            </form>
-
-            {{ item.quantity}}
-            <!--! ADD BUTTON -->
-            <form method = "POST" action = "{% url 'add_to_cart' item.itemstock.product.id %}"> <!--? Changed the product reference to the one being used in the code above-->
-                {% csrf_token %} <!--Protects (by generating a unique token) the forms from hackers trying to replicate it-->
-            <input type="hidden" name="size" value="{{ item.itemstock.size }}">
-            <input type="hidden" name="color" value="{{ item.itemstock.color.id }}">
-            <button type="submit">+</button> 
-            </form>;
+<main class="principal">
+    {% if existing_client %}
+    <section class="carrinho">
+      <div class="sacola">
+        <div class="sacola__titulos">
+          <h1 class="sacola__titulo">Cart</h1>
+          <p>
+            Order ID: <b>{{ order.id }}</b>
+          </p>
         </div>
-        Unit Price: {{ item.itemstock.product.price }}; 
-        Total Price: R${{ item.total_price }}
-    </p>
-    <hr> <!--Horizonal row-->
-    {% endfor %}
-    <a href = "{% url 'checkout' %}">Checkout</a>
 
-{% else %}
+        <table class="tabela">
+          <tr>
+            <th>Products</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Total Cost</th>
+          </tr>
 
+        {% for item in items_ordered %}
+          <tr>
+            <td class="tabela__produto">
+              <div class="tabela__imagem">
+                <img
+                  src="{{ item.itemstock.product.image.url }}"
+                  alt="{{ item.itemstock.product.name }}"
+                />
+              </div>
+              <div class="tabela__produto-textos">
+                <p><b>{{ item.itemstock.product.name }}</b></p>
+                <p><b>Size:</b> {{ item.itemstock.size }}</p>
+                <p><b>Color:</b> {{ item.itemstock.color.name }}</p>
+              </div>
+            </td>
+
+            <td class="tabela__preco-unit">
+              <p class="tabela__preco">R$ {{ item.itemstock.product.price }}</p>
+            </td>
+
+            <td class="tabela__qtd">
+              <div class="tabela__quantidade">
+                
+                <!--! REMOVE BUTTON -->
+                <form method = "POST" action = "{% url 'remove_from_cart' item.itemstock.product.id %}"> <!--? Changed the product reference to the one being used in the code above-->
+                    {% csrf_token %} <!--Protects (by generating a unique token) the forms from hackers trying to replicate it-->
+                    <input type="hidden" name="size" value="{{ item.itemstock.size }}">
+                <input type="hidden" name="color" value="{{ item.itemstock.color.id }}">
+                <button type="submit">-</button> 
+                </form>
+
+                {{ item.quantity}}
+                <!--! ADD BUTTON -->
+                <form method = "POST" action = "{% url 'add_to_cart' item.itemstock.product.id %}"> <!--? Changed the product reference to the one being used in the code above-->
+                    {% csrf_token %} <!--Protects (by generating a unique token) the forms from hackers trying to replicate it-->
+                <input type="hidden" name="size" value="{{ item.itemstock.size }}">
+                <input type="hidden" name="color" value="{{ item.itemstock.color.id }}">
+                <button type="submit">+</button> 
+                </form>
+
+              </div>
+            </td>
+
+            <td>
+              <p class="tabela__preco tabela__preco--total">R$ {{ item.total_price }}</p>
+            </td>
+          </tr>
+        {% endfor %}
+
+        </table>
+      </div>
+      <div class="subtotal">
+        <div class="subtotal__infos">
+          <p>Quantidade de Produtos</p>
+          <p>{{ order.total_quantity }}</p>
+        </div>
+
+        <div class="subtotal__infos subtotal__infos--sborda">
+          <p>Total</p>
+          <p>R$ {{ order.total_cost }}</p>
+        </div>
+
+        <a href="{% url 'checkout' %}" class="subtotal__botao">Go to checkout</a>
+      </div>
+
+    </section>
+    {% else %}
     <h3>Your cart is empty</h3>
     <a href = "{% url 'store' %}">Visit our store</a>
+    {% endif %}
+  </main>
 
-{% endif %}
 
 {% endblock %}
