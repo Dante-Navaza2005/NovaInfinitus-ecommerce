@@ -68,11 +68,12 @@
             <form method = "POST" action = "{% url 'add_to_cart' product.id %}">
                 {% csrf_token %}
                 <div class="s-produto__tamanho">
+                  <h3 class="similares__titulo">Quantity and Sizes in Stock</h3>
                     <div class="s-produto__tamanhos"> 
-                        {% for size in sizes %}
+                        {% for item in item_stock %}
                         <div class="menu__tamanho"> <!--Needs to have menu__tamanho class for the javascript-->
-                            <div class="s-produto__tamanhos-item">{{ size }}</div>
-                            <input class="menu__checkbox" type="radio" name="size" value="{{ size }}"> <!--menu__checkbox used in the produto.js-->
+                            {{ item.quantity }}<div class="s-produto__tamanhos-item">{{ item.size }}</div>
+                            <input class="menu__checkbox" type="radio" name="size" value="{{ item.size }}"> <!--menu__checkbox used in the produto.js-->
                         </div>
                         {% endfor %}
                     </div>
@@ -81,13 +82,16 @@
                 <button type="submit" class="s-produto__adicicionar">Adicionar à sacola</button>
             </form>
             {% endif %}
-          {% else %}
-          <h3>Item fora de estoque</h3>
+          </div>
+          
+          {% if error == "size_required" %}
+          <h3 class="s-produto__descricao-titulo" style="color: #881111; border:none;">Select a size</h3>
           {% endif %}
-        </div>
-
-
-        <div class="s-produto__descricao">
+          
+          <div class="s-produto__descricao">
+          {% else %}
+          <h3 class="s-produto__descricao-titulo" style="color: #881111">Item fora de estoque</h3>
+          {% endif %}
           <p class="s-produto__descricao-titulo">Descrição do produto</p>
           <div class="s-produto__descricao-textos">
             <p>

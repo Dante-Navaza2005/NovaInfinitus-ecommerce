@@ -9,6 +9,8 @@ from django.core.exceptions import ValidationError
 from datetime import datetime
 from .api_mercadopago import create_payment #? needs to put the point so it searches on the same folder
 from django.urls import reverse
+from django.http import JsonResponse
+
 
 
 # Create your views here.
@@ -59,7 +61,7 @@ def add_to_cart(request, product_id):
         size = data.get('size') #? used get instead of ['size'] as it wont return a error
         color_id = data.get('color')
         if not size: #? only check the size as it only appears after selecting the color
-            return redirect('store')
+            return redirect(f'/product/{product_id}/?error=size_required')
         
         #!getting the client
         answer = redirect('cart') #? to implement cookies we need to edit the redirect response
@@ -111,6 +113,7 @@ def remove_from_cart(request, product_id) :
 
 def cart(request):
     #! getting the client
+    cart_exists = False
     if request.user.is_authenticated:
         client = request.user.client
     else :
@@ -118,11 +121,13 @@ def cart(request):
             id_session = request.COOKIES.get("id_session")
             client, created = Client.objects.get_or_create(id_session=id_session)
         else : #? if the client enters directly on the cart, whithout generating cookies
-            context = {"existing_client": False, "order" : None, "items_ordered" : None}
+            context = {"existing_client": False, "order" : None, "items_ordered" : None, "cart_exists" : cart_exists}
             return render(request, 'cart.html', context) 
     order, created = Order.objects.get_or_create(client=client, finished=False) 
     items_ordered = OrderedItem.objects.filter(order = order)
-    context = {"order" : order, "items_ordered" : items_ordered, "existing_client": True}
+    if len(items_ordered) > 0:
+        cart_exists = True
+    context = {"order" : order, "items_ordered" : items_ordered, "existing_client": True, "cart_exists" : cart_exists}
     return render(request, 'cart.html', context) 
 
 def checkout(request): 
@@ -248,6 +253,7 @@ def view_product(request, product_id, id_color = None) :
     selected_color = None
     product = Product.objects.get(id=product_id) #? id parameter is created automatically by django
     item_stock = ItemStock.objects.filter(product = product, quantity__gt = 0) #? gets the product that has more than 0 quantity (queryset lookup)
+    error = request.GET.get('error')
     if len(item_stock) > 0 : 
         has_stock = True #? necessary in order to do a if on the html. if the product is out of stock, will show "Out of Stock"
         colors = {item.color for item in item_stock} #? gets the colors of all products, uses sets '{}' to avoid duplicate colors
@@ -256,7 +262,7 @@ def view_product(request, product_id, id_color = None) :
             item_stock = ItemStock.objects.filter(product = product, quantity__gt = 0, color__id = id_color) #? gets the color id  attribute from the Color class (that is automatically created)
             sizes = {item.size for item in item_stock} #? gets the sizes of all products
     similars = Product.objects.filter(category__id=product.category.id, product_type__id=product.product_type.id).exclude(id=product.id)[:4] #? gets all products that are not the same as the current one
-    context = {'product': product, "has_stock" : has_stock, "colors" : colors, "sizes" : sizes, "selected_color" : selected_color, "similars" : similars}
+    context = {'product': product, "has_stock" : has_stock, "colors" : colors, "sizes" : sizes, "selected_color" : selected_color, "similars" : similars, "item_stock" : item_stock, "error": error}
     return render(request, 'view_product.html', context)
 
 def create_account(request):
