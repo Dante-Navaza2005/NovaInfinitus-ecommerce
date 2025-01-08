@@ -151,8 +151,10 @@ def checkout(request):
             return redirect('store') #? return directly to the store as the cart should be empty
     order, created = Order.objects.get_or_create(client=client, finished=False)
     items_ordered = OrderedItem.objects.filter(order=order)
+    if not items_ordered :
+        return redirect(f'/cart/?error=quantity')
     for item in items_ordered :
-        if item.quantity > item.itemstock.quantity :
+        if item.quantity > item.itemstock.quantity:
             return redirect(f'/cart/?error=quantity')
     addresses = Adres.objects.filter(client=client) #? filters all adresses associated with the client
     context = {"order" : order, "addresses" : addresses, "error" : None}
@@ -184,7 +186,7 @@ def finish_order(request, order_id) :
                 error = "email"
             
             clients = Client.objects.filter(email=email)
-            if clients.exists() and clients[0].id_session == None:
+            if clients.exists() and clients[0].user != None:
                 # If a client with the same email exists, return an error
                 error = "email_in_use"
 
@@ -206,8 +208,10 @@ def finish_order(request, order_id) :
         else :
             #? make payment
             items_ordered = OrderedItem.objects.filter(order=order)
+            if not items_ordered :
+                return redirect(f'/cart/?error=quantity')
             for item in items_ordered :
-                if item.quantity > item.itemstock.quantity :
+                if item.quantity > item.itemstock.quantity:
                     return redirect(f'/cart/?error=quantity')
             link = request.build_absolute_uri(reverse("finalize_payment"))
             payment_link, payment_id= create_payment(items_ordered, link)
@@ -436,10 +440,22 @@ def perform_login(request):
     
     context = {"error" : error}
     return render(request, 'user/login.html', context)
+
 @login_required
-def perform_logout(request) :
+def perform_logout(request):
+    # Log out the user
     logout(request)
-    return redirect('perform_login')
+
+    # Clear all session data
+    request.session.flush()
+
+    # Clear the current session cookie
+    response = redirect('perform_login')
+    response.delete_cookie('id_session')
+
+    return response
+
+
 
 @login_required
 def manage_store(request):
