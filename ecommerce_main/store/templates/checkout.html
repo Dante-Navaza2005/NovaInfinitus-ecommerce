@@ -137,7 +137,7 @@
               </button>
               {% if error %}
                 {% if error == "conflicting_cost" %}
-                    <p class="checkout__erro">Invalid product total cost. Try again or return to the cart.</p>
+                    <p class="checkout_erro">Invalid product total cost. Try again or return to the cart.</p>
                 {% endif %}
                     
                 {% if error == "adress" %}
@@ -146,6 +146,10 @@
                     
                 {% if error == "email" %}
                     <p class="checkout_erro">Fill in your email to continue.</p>
+                {% endif %}
+                
+                {% if error == "email_in_use" %}
+                    <p class="checkout_erro">Account with that email already exists. Log in or use another.</p>
                 {% endif %}
               {% endif %}
             </div>

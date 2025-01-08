@@ -1,6 +1,7 @@
 import mercadopago
 from dotenv import load_dotenv
 import os
+from datetime import datetime, timedelta, timezone
 
 load_dotenv()
 
@@ -8,35 +9,44 @@ load_dotenv()
 public_key = os.getenv('mercado_public_key')
 access_token = os.getenv('mercado_access_token')
 
-def create_payment(items_ordered, link) :
-    #configure your credentials
-    sdk = mercadopago.SDK(access_token) #? validating access token
 
-    #? items the user is purchasing
+def create_payment(items_ordered, link):
+    # Configure suas credenciais
+    sdk = mercadopago.SDK(access_token)  # Validando access token
+
+    # Items que o usuário está comprando
     items = []
-    for item in items_ordered :
+    for item in items_ordered:
         quantity = int(item.quantity)
         product_name = item.itemstock.product.name
         unit_price = float(item.itemstock.product.price)
         items.append({
-            "title": product_name, 
-            "quantity": quantity, 
+            "title": product_name,
+            "quantity": quantity,
             "unit_price": unit_price
-            })
+        })
 
-    # Create items in the preference. preference = personalized charge for clients
+    # Calcular a data de expiração (1 hora a partir do horário atual)
+    now_utc = datetime.now(timezone.utc)
+    expiration_time = now_utc + timedelta(hours=1)# Adicionar 1 hora
+    expiration_iso = expiration_time.isoformat(timespec='milliseconds')  # Formatar em ISO 8601
+
+
+    # Criar os dados de preferência
     preference_data = {
         "items": items,
-        "auto_return": "all", #? auto-return to site after payment  
-        "back_urls": { #? links that will be loaded in each payment cenario
+        "auto_return": "all",  # Retorno automático para o site após pagamento
+        "back_urls": {  # Links que serão carregados em cada cenário de pagamento
             "success": link,
             "failure": link,
             "pending": link,
-        }, 
+        },
+        "expires": True,
+        "expiration_date_to": expiration_iso  # Adicionando a data de expiração
     }
 
-    # Create a preference
-    preference_response = sdk.preference().create(preference_data) #? creating request with various informations about the payment
+    # Criar uma preferência
+    preference_response = sdk.preference().create(preference_data)  # Criando requisição com várias informações sobre o pagamento
     payment_link = preference_response["response"]["init_point"]
-    payment_id = preference_response["response"]["id"] #? obtaining the payment id to treat it
+    payment_id = preference_response["response"]["id"]  # Obtendo o ID do pagamento para tratá-lo
     return payment_link, payment_id

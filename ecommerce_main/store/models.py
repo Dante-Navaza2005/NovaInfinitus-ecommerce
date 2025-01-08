@@ -174,7 +174,7 @@ class Order(models.Model):
 class OrderedItem(models.Model):
     itemstock = models.ForeignKey(ItemStock, blank=True, null=True, on_delete=models.SET_NULL)
     quantity = models.IntegerField(default=0)
-    order = models.ForeignKey(Order, blank=True, null=True, on_delete=models.SET_NULL)
+    order = models.ForeignKey(Order, blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Order ID: {self.order.id} - Product: {self.itemstock.product}, {self.itemstock.size}, {self.itemstock.color.name}"

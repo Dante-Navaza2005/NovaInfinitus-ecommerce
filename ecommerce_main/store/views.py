@@ -78,8 +78,9 @@ def add_to_cart(request, product_id):
         order, created = Order.objects.get_or_create(client=client, finished=False)
         item_stock = ItemStock.objects.get(product__id=product_id, size=size, color=color_id) #? In the forms we enter the color, id, and the size
         item_ordered, created = OrderedItem.objects.get_or_create(order=order, itemstock=item_stock) #? adding the product to the cart
-        item_ordered.quantity += 1
-        item_ordered.save() #? Must save changes made directly to a element
+        if item_ordered.quantity < item_stock.quantity :
+            item_ordered.quantity += 1
+            item_ordered.save() #? Must save changes made directly to a element
         return answer
     else :
         return redirect('store') #? redirect the user to the store if he didn't choose a product
@@ -113,6 +114,7 @@ def remove_from_cart(request, product_id) :
 
 def cart(request):
     #! getting the client
+    error = request.GET.get('error')
     cart_exists = False
     if request.user.is_authenticated:
         client = request.user.client
@@ -125,9 +127,16 @@ def cart(request):
             return render(request, 'cart.html', context) 
     order, created = Order.objects.get_or_create(client=client, finished=False) 
     items_ordered = OrderedItem.objects.filter(order = order)
+
+    for item in items_ordered :
+        if item.quantity > item.itemstock.quantity :
+            item.quantity = item.itemstock.quantity
+            item.save()
+        if item.quantity <= 0 :
+            item.delete()
     if len(items_ordered) > 0:
         cart_exists = True
-    context = {"order" : order, "items_ordered" : items_ordered, "existing_client": True, "cart_exists" : cart_exists}
+    context = {"order" : order, "items_ordered" : items_ordered, "existing_client": True, "cart_exists" : cart_exists, "error" : error}
     return render(request, 'cart.html', context) 
 
 def checkout(request): 
@@ -140,7 +149,11 @@ def checkout(request):
             client, created = Client.objects.get_or_create(id_session=id_session)
         else : #? if the client enters directly on the cart, whithout generating cookies
             return redirect('store') #? return directly to the store as the cart should be empty
-    order, created = Order.objects.get_or_create(client=client, finished=False) 
+    order, created = Order.objects.get_or_create(client=client, finished=False)
+    items_ordered = OrderedItem.objects.filter(order=order)
+    for item in items_ordered :
+        if item.quantity > item.itemstock.quantity :
+            return redirect(f'/cart/?error=quantity')
     addresses = Adres.objects.filter(client=client) #? filters all adresses associated with the client
     context = {"order" : order, "addresses" : addresses, "error" : None}
     return render(request, 'checkout.html', context) 
@@ -169,8 +182,13 @@ def finish_order(request, order_id) :
                 validate_email(email)
             except ValidationError :
                 error = "email"
+            
+            clients = Client.objects.filter(email=email)
+            if clients.exists() and clients[0].id_session == None:
+                # If a client with the same email exists, return an error
+                error = "email_in_use"
+
             if not error :
-                clients = Client.objects.filter(email=email)
                 if clients:
                     order.client = clients[0]
                 else:
@@ -188,8 +206,14 @@ def finish_order(request, order_id) :
         else :
             #? make payment
             items_ordered = OrderedItem.objects.filter(order=order)
+            for item in items_ordered :
+                if item.quantity > item.itemstock.quantity :
+                    return redirect(f'/cart/?error=quantity')
             link = request.build_absolute_uri(reverse("finalize_payment"))
             payment_link, payment_id= create_payment(items_ordered, link)
+            payment = Payment.objects.filter(order=order, aproved=False)
+            if len(payment) > 5 :
+                payment.delete() #? deleting old, unfinished payments
             payment = Payment.objects.create(payment_id=payment_id,order=order)
             payment.save()
             return redirect(payment_link)
@@ -206,6 +230,15 @@ def finalize_payment(request) :
         order = payment.order
         order.finished = True
         order.end_date = datetime.now()
+
+        #? updating the stock
+        items_ordered = OrderedItem.objects.filter(order=order)
+        for item_ordered in items_ordered :
+            item_stock = ItemStock.objects.get(product=item_ordered.itemstock.product, size=item_ordered.itemstock.size, color=item_ordered.itemstock.color)
+            item_stock.quantity -= item_ordered.quantity
+            item_stock.save()
+
+
         order.save()
         payment.save()
 
@@ -224,8 +257,6 @@ def order_aproved(request, order_id) :
     order = Order.objects.get(id=order_id) #? getting the order by its id
     context = {"order" : order}
     return render(request, "order_aproved.html", context)
-
-# TODO error when finishing order after aunathenticades user address
 
 def add_address(request) :
     if request.method == "POST" : #? handling the submission of the form
@@ -392,6 +423,7 @@ def perform_login(request):
             email = data.get("email")
             password = data.get("password")
             user = authenticate(request, username=email, password=password) #? authenticating the user
+
             if user :
                 #? perform login
                 login(request, user)

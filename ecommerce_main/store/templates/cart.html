@@ -37,6 +37,7 @@
                 <p><b>{{ item.itemstock.product.name }}</b></p>
                 <p><b>Size:</b> {{ item.itemstock.size }}</p>
                 <p><b>Color:</b> {{ item.itemstock.color.name }}</p>
+                <p><b>Quantity in stock:</b> {{ item.itemstock.quantity }}</p>
               </div>
             </td>
 
@@ -87,6 +88,9 @@
         </div>
 
         <a href="{% url 'checkout' %}" class="subtotal__botao">Go to checkout</a>
+        {% if error == "quantity" %}
+          <p style="margin-top:2rem;"class="checkout_erro">Stock quantity changed, revise the cart.</p>
+        {% endif %}
       </div>
 
     </section>
