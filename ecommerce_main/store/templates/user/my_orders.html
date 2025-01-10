@@ -10,6 +10,7 @@
       <div class="conta__container">
         <div class="checkout__titulos">
           <p class="checkout__titulo">My Orders</p>
+          <p class="checkout__titulo" style="font-size:2rem; text-align: start;">When making a new purchase, please check your email {{ email }} for more information. </p>
         </div>
 
         {% for order in orders %}
@@ -59,10 +60,10 @@
         <p><b style="line-height: 2.6;">Adress: {{ order.adress.zip_code }}, {{ order.adress.city }}-{{ order.adress.state }}</b></p>
     </div>
         {% endfor %}
+        <a class="esquecer_senha" href="{% url 'store' %}">Make a new purchase</a>
       </div>
     </section>
   </main>
-
 
 
 {% endblock %}

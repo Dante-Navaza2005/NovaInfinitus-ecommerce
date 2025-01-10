@@ -414,7 +414,7 @@ def my_orders(request):
     client = request.user.client #? gets the client associated with the current authenticated user user
     orders = Order.objects.filter(finished=True, client=client).order_by("-end_date") #? gets all finished orders associated with the client user in descending date order
     
-    context = {"orders" : orders}
+    context = {"orders" : orders, "email" : client.email}
     return render(request, 'user/my_orders.html', context)
 
 def perform_login(request):
