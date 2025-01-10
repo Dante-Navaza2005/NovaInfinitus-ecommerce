@@ -80,21 +80,25 @@ def send_purchase_email(order) :
         send_mail(subject, body, sender, [email]) #? email must be in list
     
 
-def export_csv(data) :
-    collumns = data.model._meta.fields #? gets the metadata of the model`s parameters (fields)
+def export_csv(data, title) :
+    # Get model fields
+    collumns = data.model._meta.fields
     collumns_name = [collumn.name for collumn in collumns]
-    
-    response = HttpResponse(content_type="text/csv") #? will return a csv file
-    response["Content-Disposition"] = f"attachment; '{data.model}.csv'"
 
-    csv_creator = csv.writer(response, delimiter=";") #? the rows will come with ';' 
+    # Create the HttpResponse object with CSV content type
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = f"attachment; filename=\"{title}.csv\""
 
-    #? first row will be the collumns
+    # Initialize the CSV writer with a delimiter
+    csv_creator = csv.writer(response, delimiter=";")
+
+
+    # Write the column names as the header
     csv_creator.writerow(collumns_name)
 
-    #?writing the lines themselves
+    # Write the data rows
     for line in data.values_list():
-        csv_creator.writerow(line)  #? writes each row of data as a list of values to the csv file.
+        csv_creator.writerow(line)
 
     return response
 

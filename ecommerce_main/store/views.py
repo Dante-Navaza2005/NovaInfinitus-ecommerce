@@ -475,10 +475,13 @@ def export_report(request, report):
     if request.user.groups.filter(name="Team").exists(): #? verify again if the user is part of a management Team
         if report == "orders" :
             data = Order.objects.filter(finished=True) #? queryset that searches the whole database
+            title = "orders"
         elif report == "client" :
             data = Client.objects.all()
+            title = "clients"
         elif report == "address" :
             data = Adres.objects.all()
-        return export_csv(data) #? returns a http response
+            title = "addresses"
+        return export_csv(data, title) #? returns a http response
     else :
         return redirect('manage_store')
