@@ -79,7 +79,7 @@
                     </div>
                 </div>
                 <input type="hidden" name="color" value="{{ selected_color.id }}">
-                <button type="submit" class="s-produto__adicicionar">Adicionar à sacola</button>
+                <button type="submit" class="s-produto__adicicionar">Add to cart</button>
             </form>
             {% endif %}
           </div>
@@ -90,19 +90,19 @@
           
           <div class="s-produto__descricao">
           {% else %}
-          <h3 class="s-produto__descricao-titulo" style="color: #881111">Item fora de estoque</h3>
+          <h3 class="s-produto__descricao-titulo" style="color: #881111">Item out of stock</h3>
           {% endif %}
-          <p class="s-produto__descricao-titulo">Descrição do produto</p>
+          <p class="s-produto__descricao-titulo">Product description</p>
           <div class="s-produto__descricao-textos">
             <p>
               {{ product.description }}
             </p>
             <p>
-              COMPOSIÇÃO <br />
+              COMPOSITION <br />
                 {{ product.composition }}
             </p>
             <p>
-              CÓDIGO DO PRODUTO <br />
+              PRODUCT CODE <br />
               Ref: <span>{{ product.id }}</span>
             </p>
           </div>
@@ -113,7 +113,7 @@
     {% if similars %}
     <section class="similares">
       <h2 class="similares__titulo">
-        Gostou desse produto? Veja itens similares
+        Liked this product? See similar items.
       </h2>
 
       <div class="similares__container">

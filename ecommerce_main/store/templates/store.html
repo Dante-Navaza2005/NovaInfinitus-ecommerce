@@ -19,14 +19,14 @@
                 alt="Ícone filtrar"
               />
             </div>
-            <p class="menu__titulo">Filtrar</p>
+            <p class="menu__titulo">Filter</p>
           </div>
 
           <p class="menu__fechar-filtro">X</p>
         </div>
 
         <div class="menu__preco">
-          <p class="menu__subtitulo">Faixa de Preço</p>
+          <p class="menu__subtitulo">Price Range</p>
 
           <div class="range_container">
             <div class="sliders_control">
@@ -77,7 +77,7 @@
                 </div>
               </div>
 
-              <button type="submit" class="menu__botao">Filtrar</button>
+              <button type="submit" class="menu__botao">Filter</button>
             </div>
           </div>
         </div>
@@ -87,11 +87,12 @@
           <div
             class="menu__expansivel-cabecalho menu__expansivel-cabecalho--aberto"
           >
-            <p class="menu__subtitulo">Tamanho</p>
+            <p class="menu__subtitulo">Size</p>
           </div>
 
           <div class="menu__expansivel-conteudo">
             <div class="menu__tamanhos">
+            {% if sizes %}
             {% for size in sizes %}
               <div class="menu__tamanho">
                 <div class="menu__tamanho-quadrado">{{ size }}</div>
@@ -103,6 +104,9 @@
                 />
               </div>
             {% endfor %}
+            {% else %}
+              <p>No sizes available</p>
+            {% endif %}
 
             </div>
           </div>
@@ -113,7 +117,7 @@
           <div
             class="menu__expansivel-cabecalho menu__expansivel-cabecalho--aberto"
           >
-            <p class="menu__subtitulo">Tipo</p>
+            <p class="menu__subtitulo">Type</p>
           </div>
 
           <div class="menu__expansivel-conteudo">
@@ -138,7 +142,7 @@
 
       <div class="produtos">
         <div class="produtos__cabecalho">
-          <button class="produtos__cabecalho-filtrar">Filtrar</button>
+          <button class="produtos__cabecalho-filtrar">Filter</button>
 
           <div class="produtos__cabecalho-ordenarpor">
             <div class="produtos__cabecalho-imgicone">
@@ -148,22 +152,22 @@
                 alt=""
               />
             </div>
-            <p class="produtos__subtitulo">Ordenar por:</p>
+            <p class="produtos__subtitulo">Order by:</p>
             <select class="produtos__select" onchange="redirectToPage()">
               
               {% if order == "highest-price" %}
-              <option value="" selected>Maior preço</option> <!-- Necessary to start by default -->
+              <option value="" selected>Biggest price</option> <!-- Necessary to start by default -->
               {% elif order == "lowest-price" %}
-              <option value="" selected>Menor preço</option> <!-- Necessary to start by default -->
+              <option value="" selected>Smallest price</option> <!-- Necessary to start by default -->
               {% elif order == "most-sold" %}
-              <option value="" selected>Mais Vendidos</option> <!-- Necessary to start by default -->
+              <option value="" selected>Most sold</option> <!-- Necessary to start by default -->
               {% else %}
-              <option value="" selected>Selecone uma opção</option> <!-- Necessary to start by default -->
+              <option value="" selected>Select a option</option> <!-- Necessary to start by default -->
               {% endif %}
 
-              <option class="item-order" value="highest-price">Maior preço</option> <!--Used in the main.js javascript, it returns the value used in the js-->
-              <option class="item-order" value="lowest-price">Menor preço</option>
-              <option class="item-order" value="most-sold">Mais Vendidos</option>
+              <option class="item-order" value="highest-price">Biggest price</option> <!--Used in the main.js javascript, it returns the value used in the js-->
+              <option class="item-order" value="lowest-price">Smallest price</option>
+              <option class="item-order" value="most-sold">Most sold</option>
             </select>
           </div>
 

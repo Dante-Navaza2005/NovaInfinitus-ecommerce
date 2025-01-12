@@ -97,19 +97,19 @@
         <!-- Para exibir o menu do perfil, basta adicionar a classe 'cabecalho__informacoes-perfil--aberto' na div abaixo -->
         <div class="cabecalho__informacoes-perfil ">
           {% if request.user.client.name %}
-          <p class="cabecalho__texto">Olá, <span>{{ request.user.client.name }}</span>!</p>
+          <p class="cabecalho__texto">Hello, <span>{{ request.user.client.name }}</span>!</p>
           {% else %}
-          <p class="cabecalho__texto">Olá, <span>{{ request.user.client.email }}</span>!</p>
+          <p class="cabecalho__texto">Hello, <span>{{ request.user.client.email }}</span>!</p>
           {% endif %}
           <a
             class="cabecalho__link cabecalho__link--perfil"
             href="{% url 'your_account' %}"
-            >Minha Conta</a
+            >My Account</a
           >
           <a
             class="cabecalho__link cabecalho__link--perfil"
             href="{% url 'my_orders' %}"
-            >Meus Pedidos</a
+            >My Orders</a
           >
           {% if Team %}
           <a
@@ -119,7 +119,7 @@
           >
           {% endif %}
           <hr />
-          <a class="cabecalho__link cabecalho__link--perfil" href="{% url 'perform_logout' %}">Sair</a>
+          <a class="cabecalho__link cabecalho__link--perfil" href="{% url 'perform_logout' %}">Leave</a>
         </div>
       </div>
 
@@ -139,7 +139,7 @@
             />
           </svg>
         </a>
-        <div class="cabecalho__itens cabecalho__itens--visivel">{{product_amount_cart }} </div>
+        <div class="cabecalho__itens cabecalho__itens--visivel">{{product_amount_cart }}</div>
       </div>
     </div>
   </header>
