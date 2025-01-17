@@ -30,7 +30,7 @@ IP_ADDRESS = os.getenv('ip_address')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [IP_ADDRESS, '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = [IP_ADDRESS, '127.0.0.1', 'localhost', 'reserva-ecommerce-django-production.up.railway.app']
 
 
 # Application definition
