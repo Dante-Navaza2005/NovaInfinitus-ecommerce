@@ -132,13 +132,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 
-import os
-
 STATIC_URL = '/static/'  # The URL prefix for serving static files.
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')  # The directory where Django looks for static files during development.
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory where collectstatic will gather static files.
 
 MEDIA_URL = '/media/'  # The URL prefix for serving media files (uploaded by users).
 
