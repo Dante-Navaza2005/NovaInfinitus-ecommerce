@@ -93,8 +93,8 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dvc64z04k',
-    'API_KEY': '674447517231941',
-    'API_SECRET': 'Bn2ih9L5qdJGHlYBlOS9HSRAGaU',
+    'API_KEY': os.getenv('CLOUD_API_KEY'),
+    'API_SECRET': os.getenv('CLOUD_API_SECRET'),
 }
 
 

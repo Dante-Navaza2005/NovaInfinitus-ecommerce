@@ -1,8 +1,11 @@
 asgiref==3.8.1
 certifi==2024.8.30
 charset-normalizer==3.3.2
+cloudinary==1.42.1
 dj-database-url==2.3.0
 Django==4.2.16
+django-cloudinary-storage==0.3.0
+django-storages==1.14.4
 gunicorn==23.0.0
 idna==3.8
 mercadopago==2.2.3
@@ -12,6 +15,7 @@ psycopg2==2.9.10
 psycopg2-binary==2.9.10
 python-dotenv==1.0.1
 requests==2.32.3
+six==1.17.0
 sqlparse==0.5.1
 typing_extensions==4.12.2
 urllib3==2.2.2
