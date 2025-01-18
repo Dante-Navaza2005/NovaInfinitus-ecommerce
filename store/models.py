@@ -66,7 +66,7 @@ class Client(models.Model): #? dont use plural names as django automatically put
 class Categoric(models.Model):
     name = models.CharField(max_length=200, null=True, blank=True, unique=True)
     slug = models.CharField(max_length=200, null=True, blank=True, unique=True)
-    image = models.ImageField(upload_to=dynamic_upload_path, null=True, blank=True) #? image shown in the navbar
+    image = models.ImageField( null=True, blank=True) #? image shown in the navbar
 
     def __str__(self) :
         return str(self.name)
@@ -79,7 +79,7 @@ class Type(models.Model):
         return str(self.name)
 
 class Product(models.Model):
-    image = models.ImageField(upload_to=dynamic_upload_path, null=True, blank=True) #? we will store the file name of the image so it can be accessed in the images folder, it generatea a url
+    image = models.ImageField( null=True, blank=True) #? we will store the file name of the image so it can be accessed in the images folder, it generatea a url
     name = models.CharField(max_length=200, null=True, blank=True)
     price = models.DecimalField(max_digits = 7, decimal_places = 2, null=True, blank=True) #? max price is 99,999.99
     active = models.BooleanField(default=True)
@@ -184,7 +184,7 @@ class OrderedItem(models.Model):
         return self.quantity * self.itemstock.product.price
 
 class Banner(models.Model) :
-    image = models.ImageField(upload_to=dynamic_upload_path, null=True, blank=True, unique=True)
+    image = models.ImageField( null=True, blank=True, unique=True)
     link_output = models.CharField(max_length=400, null=True, blank=True, unique=True) #? where the user will be sent after clicking the banner
     active = models.BooleanField(default=False) #? whether the link is currently active or not
 
