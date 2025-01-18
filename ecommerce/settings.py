@@ -149,11 +149,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory where collectst
 
 MEDIA_URL = '/media/'  # The URL prefix for serving media files (uploaded by users).
 
-# Filesystem path where uploaded files are stored
-if os.getenv('RAILWAY_ENVIRONMENT') == 'production':
-    MEDIA_ROOT = '/media/'  # Path where Railway volume is mounted
-else:
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Local media folder for development
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Local media folder for development
 
 # Compress and cache static files for better performance
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
