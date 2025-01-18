@@ -47,20 +47,7 @@ def create_payment(items_ordered, link):
 
     # Criar uma preferência
     preference_response = sdk.preference().create(preference_data)  # Criando requisição com várias informações sobre o pagamento
-
-
-    import logging
-    from django.shortcuts import render, redirect
-    logger = logging.getLogger(__name__)
-    logger.info(f"Preference response: {preference_response}")
-
-    # Safely access response data
-    if 'response' not in preference_response:
-        logger.error("Invalid response from Mercado Pago API.")
-        return redirect("/cart/?error=invalid_payment_response")
-
-
-
+    
     payment_link = preference_response["response"]["init_point"]
     payment_id = preference_response["response"]["id"]  # Obtendo o ID do pagamento para tratá-lo
     return payment_link, payment_id
