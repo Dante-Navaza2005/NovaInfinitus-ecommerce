@@ -151,8 +151,20 @@ MEDIA_URL = '/media/'  # The URL prefix for serving media files (uploaded by use
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Local media folder for development
 
+
+# Storage Configuration
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+# Custom Path for Railway Volume
+MEDIA_VOLUME_PATH = '/media/'  # Default is /media on Railway
+
+# Update MEDIA_ROOT to use Railway Volume
+MEDIA_ROOT = MEDIA_VOLUME_PATH
+
+
 # Compress and cache static files for better performance
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 
 # Default primary key field type
