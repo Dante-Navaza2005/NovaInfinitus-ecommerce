@@ -30,7 +30,7 @@ IP_ADDRESS = os.getenv('ip_address')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [IP_ADDRESS, '127.0.0.1', 'localhost', 'reserva-ecommerce-django-production.up.railway.app', 'reserva-ecommerce.com']
+ALLOWED_HOSTS = [IP_ADDRESS, '127.0.0.1', 'localhost', 'reserva-ecommerce-django-production.up.railway.app', 'reserva-ecommerce.com', 'https://www.mercadopago.com.br/checkout/v1/payment/redirect/']
 
 CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1',
@@ -38,6 +38,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://192.168.68.112',
     'https://reserva-ecommerce-django-production.up.railway.app',
     'https://reserva-ecommerce.com',
+    'https://www.mercadopago.com.br/checkout/v1/payment/redirect/',
 ]
 
 # Application definition

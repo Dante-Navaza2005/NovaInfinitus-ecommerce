@@ -12,7 +12,6 @@ from django.urls import reverse
 from django.http import JsonResponse
 
 
-
 # Create your views here.
 def homepage(request): #? the first parameter always has to be a request
     banners = Banner.objects.filter(active=True)
