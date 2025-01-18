@@ -54,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'ecommerce.urls'
@@ -141,6 +143,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory where collectst
 MEDIA_URL = '/media/'  # The URL prefix for serving media files (uploaded by users).
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # The absolute filesystem path to the directory for media files.
+
+# Compress and cache static files for better performance
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Default primary key field type
