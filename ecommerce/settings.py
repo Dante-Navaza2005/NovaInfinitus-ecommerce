@@ -31,8 +31,13 @@ IP_ADDRESS = os.getenv('ip_address')
 DEBUG = False
 
 ALLOWED_HOSTS = [IP_ADDRESS, '127.0.0.1', 'localhost', 'reserva-ecommerce-django-production.up.railway.app']
-CSRF_TRUSTED_ORIGINS = [IP_ADDRESS, '127.0.0.1', 'localhost', 'reserva-ecommerce-django-production.up.railway.app']
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1',
+    'http://localhost',
+    'http://192.168.68.112',
+    'https://reserva-ecommerce-django-production.up.railway.app',
+]
 
 # Application definition
 
