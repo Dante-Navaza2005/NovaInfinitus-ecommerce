@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'store', #? Adding the 'store' app to the main configuration
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 
@@ -87,6 +89,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dvc64z04k',
+    'API_KEY': '674447517231941',
+    'API_SECRET': 'Bn2ih9L5qdJGHlYBlOS9HSRAGaU',
+}
 
 
 # Database
@@ -147,19 +156,11 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory where collectstatic will gather static files.
 
-MEDIA_URL = '/media/'  # The URL prefix for serving media files (uploaded by users).
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
+
+MEDIA_URL = '/ecommerce/media/'  # The URL prefix for serving media files (uploaded by users).
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Local media folder for development
-
-
-# Storage Configuration
-DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-
-# Custom Path for Railway Volume
-MEDIA_VOLUME_PATH = '/media/'  # Default is /media on Railway
-
-# Update MEDIA_ROOT to use Railway Volume
-MEDIA_ROOT = MEDIA_VOLUME_PATH
 
 
 # Compress and cache static files for better performance
