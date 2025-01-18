@@ -86,15 +86,13 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
+        'NAME': 'railway',
+        'USER': 'postgres',
         'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
+        'HOST': 'roundhouse.proxy.rlwy.net:26855',
+        'PORT': '5432',
     }
 }
-
-DATABASES['default'] = dj_database_url.parse(os.getenv('DATABASE_URL')) #PUBLIC URL (private is accessible only localy in railway)
 
 
 # Password validation
