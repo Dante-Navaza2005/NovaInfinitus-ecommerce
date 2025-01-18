@@ -26,5 +26,4 @@ urlpatterns = [
     path('', include('store.urls')), #? all the links from the store app will be loaded on the  root url (as we will only use one app, 'store')
 ]
 
-re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
-
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
