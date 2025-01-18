@@ -6,13 +6,13 @@ from datetime import datetime, timedelta, timezone
 load_dotenv()
 
 
-public_key = os.getenv('mercado_public_key')
-access_token = os.getenv('mercado_access_token')
+mercado_public_key = os.getenv('mercado_public_key')
+mercado_access_token = os.getenv('mercado_access_token')
 
 
 def create_payment(items_ordered, link):
     # Configure suas credenciais
-    sdk = mercadopago.SDK(access_token)  # Validando access token
+    sdk = mercadopago.SDK(mercado_access_token)  # Validando access token
 
     # Items que o usuário está comprando
     items = []
