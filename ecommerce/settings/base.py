@@ -122,7 +122,7 @@ STATICFILES_DIRS = [
 ]
 
 
-MEDIA_ROOT = '/media/'  # Local media folder for development
+MEDIA_ROOT = os.path.join(BASE_DIR, '../media')
 
 STATIC_ROOT = 'staticfiles'  # Directory where collectstatic will gather static files.
 
