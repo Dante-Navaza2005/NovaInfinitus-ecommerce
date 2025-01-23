@@ -6,7 +6,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     'novainfinitus.up.railway.app',
-    'reserva-ecommerce.com',
+    'novainfinitus.com',
     'https://www.mercadopago.com.br/checkout/v1/payment/redirect/',
 ]
 
