@@ -24,12 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 load_dotenv()
 SECRET_KEY = os.getenv('secret_key')
-IP_ADDRESS = os.getenv('ip_address')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = [IP_ADDRESS, '127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -41,8 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'store', #? Adding the 'store' app to the main configuration
-    'cloudinary_storage',
-    'cloudinary',
+    
 ]
 
 
@@ -55,7 +49,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'ecommerce.urls'
@@ -82,26 +75,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dvc64z04k',
-    'API_KEY': os.getenv('CLOUD_API_KEY'),
-    'API_SECRET': os.getenv('CLOUD_API_SECRET'),
-}
-
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': 'roundhouse.proxy.rlwy.net',
-        'PORT': '26855',
-    }
-}
 
 
 # Password validation
@@ -142,21 +118,13 @@ USE_TZ = True
 STATIC_URL = '/static/'  # The URL prefix for serving static files.
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')  # The directory where Django looks for static files during development.
+    'static'# The directory where Django looks for static files during development.
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory where collectstatic will gather static files.
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
+MEDIA_ROOT = '/media/'  # Local media folder for development
 
-MEDIA_URL = '/ecommerce/media/'  # The URL prefix for serving media files (uploaded by users).
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Local media folder for development
-
-
-# Compress and cache static files for better performance
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
+STATIC_ROOT = 'staticfiles'  # Directory where collectstatic will gather static files.
 
 
 # Default primary key field type
