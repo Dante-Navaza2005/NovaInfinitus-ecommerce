@@ -4,13 +4,13 @@ DEBUG = False
 
 
 ALLOWED_HOSTS = [
-    'reserva-ecommerce-django-production.up.railway.app',
+    'novainfinitus.up.railway.app',
     'reserva-ecommerce.com',
     'https://www.mercadopago.com.br/checkout/v1/payment/redirect/',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://reserva-ecommerce-django-production.up.railway.app',
+    'novainfinitus.up.railway.app',
     'https://reserva-ecommerce.com',
     'https://www.mercadopago.com.br/checkout/v1/payment/redirect/',
 ]
