@@ -44,8 +44,9 @@ MEDIA_URL = '/ecommerce/media/'  # The URL prefix for serving media files (uploa
 # Compress and cache static files for better performance
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 SECURE_HSTS_SECONDS = 3600  # Ajuste o valor conforme necessário
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Para incluir subdomínios
 SECURE_HSTS_PRELOAD = True  # Para pré-carregar a configuração nos navegadores
-SECURE_SSL_REDIRECT = True
 
