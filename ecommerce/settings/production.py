@@ -1,4 +1,5 @@
 from .base import *
+load_dotenv()
 
 DEBUG = False
 

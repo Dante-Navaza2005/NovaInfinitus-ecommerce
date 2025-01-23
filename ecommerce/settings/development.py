@@ -1,10 +1,12 @@
 from .base import *
+load_dotenv()
+
 
 DEBUG = True
 
-IP_ADDRESS = os.getenv('ip_address')
+ADDRESS_IP = os.getenv('ADDRESS_IP')
 
-ALLOWED_HOSTS = [IP_ADDRESS, '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = [ADDRESS_IP, '127.0.0.1', 'localhost']
 
 DATABASES = {
     'default': {
