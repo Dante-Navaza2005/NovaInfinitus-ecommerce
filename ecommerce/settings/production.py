@@ -51,3 +51,7 @@ SECURE_HSTS_SECONDS = 31536000  # Ajuste o valor conforme necessário
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Para incluir subdomínios
 SECURE_HSTS_PRELOAD = True  # Para pré-carregar a configuração nos navegadores
 
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SECURE = True
+
