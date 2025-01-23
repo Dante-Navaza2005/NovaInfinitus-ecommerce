@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from dotenv import load_dotenv
-import dj_database_url
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,16 +29,7 @@ IP_ADDRESS = os.getenv('ip_address')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [IP_ADDRESS, '127.0.0.1', 'localhost', 'reserva-ecommerce-django-production.up.railway.app', 'reserva-ecommerce.com', 'https://www.mercadopago.com.br/checkout/v1/payment/redirect/']
-
-CSRF_TRUSTED_ORIGINS = [
-    'http://127.0.0.1',
-    'http://localhost',
-    'http://192.168.68.112',
-    'https://reserva-ecommerce-django-production.up.railway.app',
-    'https://reserva-ecommerce.com',
-    'https://www.mercadopago.com.br/checkout/v1/payment/redirect/',
-]
+ALLOWED_HOSTS = [IP_ADDRESS, '127.0.0.1', 'localhost']
 
 # Application definition
 
