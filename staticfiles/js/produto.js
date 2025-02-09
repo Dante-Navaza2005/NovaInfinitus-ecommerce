@@ -13,7 +13,7 @@ checkboxes.forEach(function(checkbox) {
         var adjacentDiv = this.previousElementSibling; // Get the previous sibling (the div)
         if (this.checked) {
             adjacentDiv.style.color = 'white'; // Set the color of the currently selected one
-            adjacentDiv.style.backgroundColor = 'black'; // Set the color of the currently selected one
+            adjacentDiv.style.backgroundColor = '#d208ff'; // Set the color of the currently selected one
         }
     });
 });
