@@ -6,7 +6,7 @@ DEBUG = True
 
 ADDRESS_IP = os.getenv('ADDRESS_IP')
 
-ALLOWED_HOSTS = ['192.168.68.102', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = [ADDRESS_IP, '127.0.0.1', 'localhost']
 
 DATABASES = {
     'default': {
