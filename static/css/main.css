@@ -34,11 +34,12 @@ html {
   }
 }
 body {
-  font-family: Inter, sans-serif;
+  font-family: "Montserrat", serif;
   font-size: 1.6rem;
   line-height: 1.2;
-  color: #000;
-  background-color: #fff;
+  color: #f6e6ff;
+  background-color: #150226;
+  letter-spacing: 2px;
 }
 img {
   width: 100%;
@@ -93,7 +94,7 @@ img {
   justify-content: space-between;
   gap: 1.6rem;
   padding: 0 4.88rem;
-  background-color: #fff;
+  background-color: #150226;
   z-index: 999;
 }
 .esquecer_senha {
@@ -162,14 +163,14 @@ img {
 }
 .cabecalho__menu-x {
   display: none;
-  font-weight: 500;
+  font-weight: 100;
   font-size: 2.4rem;
   text-align: center;
 }
 .cabecalho__logo {
   min-width: 15rem;
-  width: 15rem;
-  margin-bottom: 2px;
+  width: 25rem;
+  margin-bottom: 12px;
 }
 @media (max-width: 59.375em) {
   .cabecalho__logo {
@@ -186,7 +187,7 @@ img {
   max-width: 81rem;
 }
 .senha_aviso{
-  font-weight: 400;
+  font-weight: 100;
   color: #626262b9;
   font-size: 1.2rem;
 }
@@ -248,11 +249,11 @@ img {
   }
 }
 .cabecalho__link {
-  font-size: 1.33rem;
+  font-size: 1.3rem;
   text-transform: uppercase;
   text-decoration: none;
   color: inherit;
-  font-weight: 700;
+  font-weight: 100;
   line-height: 1;
   border-bottom: solid 2px transparent;
 }
@@ -307,7 +308,7 @@ img {
 }
 .cabecalho__link--perfil {
   text-transform: none;
-  font-weight: 400;
+  font-weight: 100;
   border-bottom: none;
 }
 @media (max-width: 59.375em) {
@@ -320,7 +321,7 @@ img {
 }
 .cabecalho__link--tipo {
   text-transform: none;
-  font-weight: 400;
+  font-weight: 100;
   color: #626262;
   line-height: 2.4rem;
 }
@@ -361,12 +362,12 @@ img {
   gap: 4.88rem;
   display: none;
   position: absolute;
-  background-color: #fff;
+  background-color: #150226;
   left: 0;
   right: 0;
   top: 100%;
   padding: 3.12rem 4.88rem;
-  box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4rem 2rem -2rem rgba(210, 8, 255, 0.138);
 }
 @media (max-width: 59.375em) {
   .cabecalho__expansao-tipos {
@@ -458,9 +459,10 @@ img {
   width: max-content;
   border-radius: 0.5rem;
   padding: 3.12rem 2rem;
-  background-color: #fff;
-  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
+  background-color: #0f0114;
+  box-shadow: 0px 10px 20px rgba(210, 8, 255, 0.2);
 }
+
 .cabecalho__informacoes-perfil--aberto {
   display: flex;
 }
@@ -520,8 +522,9 @@ img {
   }
 }
 .rodape__secao-formulario {
-  background-color: #f9f9f9;
+  background-color: #0f0114;
   padding: 3.12rem 2rem;
+  box-shadow: 3px 3px 21px 18px rgba(210, 8, 255, 0.119);
 }
 .rodape__app-newsletter {
   display: flex;
@@ -594,9 +597,7 @@ img {
 }
 .rodape__texto-newsletter {
   font-size: 3.32rem;
-  font-family: serif;
-  font-weight: 700;
-  text-wrap: nowrap;
+  font-weight: 100;
   line-height: 1;
 }
 .rodape__imagens-loja {
@@ -658,9 +659,8 @@ img {
   transition: all 0.3s ease-in-out 0s;
 }
 .rodape__titulo {
-  font-family: serif;
   font-size: 1.92rem;
-  font-weight: 700;
+  font-weight: 100;
 }
 .rodape__atendimento {
   display: flex;
@@ -787,7 +787,7 @@ img {
 }
 .rodape__diferencial-titulo {
   font-size: 1.6rem;
-  font-weight: 600;
+  font-weight: 100;
 }
 .rodape__certificacoes {
   display: flex;
@@ -819,7 +819,7 @@ img {
 }
 .rodape__certificacao-titulo {
   font-size: 1.6rem;
-  font-weight: 600;
+  font-weight: 100;
 }
 @media (max-width: 59.375em) {
   .rodape__certificacao-titulo {
@@ -853,11 +853,12 @@ img {
   align-items: stretch;
   justify-content: center;
   gap: 0;
-  background-color: #f0f0f0;
+  background-color: #0f0114;
   font-size: 1.11rem;
   opacity: 0.5;
   padding: 1.28rem;
   text-align: center;
+  box-shadow: 3px 3px 21px 13px rgba(210, 8, 255, 0.327);
 }
 .carrossel {
   position: relative;
@@ -1082,7 +1083,7 @@ img {
   align-items: start;
   justify-content: space-between;
   gap: 0.6rem;
-  font-weight: 700;
+  font-weight: 100;
 }
 .produto__avista {
   font-size: 1.92rem;
@@ -1204,7 +1205,7 @@ img {
 }
 .menu__fechar-filtro {
   display: none;
-  font-weight: 700;
+  font-weight: 100;
   border-radius: 50%;
   width: 2.8rem;
   height: 2.8rem;
@@ -1248,11 +1249,10 @@ img {
 }
 .menu__titulo {
   font-size: 2.3rem;
-  font-family: serif;
 }
 .menu__titulo,
 .menu__subtitulo {
-  font-weight: 700;
+  font-weight: 100;
 }
 .menu__subtitulo {
   font-size: 1.33rem;
@@ -1350,7 +1350,7 @@ img {
   width: 2.8rem;
   height: 2.8rem;
   font-size: 0.92rem;
-  font-weight: 700;
+  font-weight: 100;
   border: solid 1px #000;
   border-radius: 4px;
 }
@@ -1388,7 +1388,7 @@ img {
   width: 2rem;
   height: 2rem;
   font-size: 0.92rem;
-  font-weight: 700;
+  font-weight: 100;
   border: solid 1px #000;
   border-radius: 4px;
 }
@@ -1461,7 +1461,7 @@ img {
   }
 }
 .produtos__cabecalho-itens {
-  font-weight: 600;
+  font-weight: 100;
 }
 @media (max-width: 59.375em) {
   .produtos__cabecalho-textoitens {
@@ -1481,7 +1481,7 @@ img {
   outline: none;
 }
 .produtos__subtitulo {
-  font-weight: 700;
+  font-weight: 100;
   font-size: 1.33rem;
 }
 @media (max-width: 59.375em) {
@@ -1572,7 +1572,6 @@ img {
   gap: 1.6rem;
 }
 .s-produto__titulo {
-  font-family: serif;
   font-size: 3.9rem;
 }
 @media (max-width: 59.375em) {
@@ -1581,7 +1580,7 @@ img {
   }
 }
 .s-produto__preco {
-  font-weight: 500;
+  font-weight: 100;
   font-size: 3.32rem;
 }
 .s-produto__preco sup {
@@ -1662,7 +1661,7 @@ img {
 .s-produto__descricao-titulo {
   color: #1b1b1b;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 100;
   padding-bottom: 2rem;
   border-bottom: solid 1px #a7a7a7;
 }
@@ -1741,7 +1740,7 @@ img {
   }
 }
 .similares__titulo {
-  font-weight: 400;
+  font-weight: 100;
 }
 .similares__container {
   display: grid;
@@ -1800,7 +1799,6 @@ img {
   }
 }
 .sacola__titulo {
-  font-family: serif;
   font-size: 2.76rem;
 }
 .sacola__realce-verde {
@@ -2136,7 +2134,6 @@ img {
   margin-bottom: 0.5rem;
 }
 .checkout__titulo,.checkout_acerto,.checkout_erro {
-  font-family: serif;
   font-size: 2.76rem;
 }
 .checkout_acerto,.checkout_erro {
