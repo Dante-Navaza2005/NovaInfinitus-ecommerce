@@ -12,7 +12,7 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
     'https://novainfinitus.up.railway.app',
-    'https://reserva-ecommerce.com',
+    'https://novainfinitus.com',
     'https://www.mercadopago.com.br/checkout/v1/payment/redirect/',
 ]
 

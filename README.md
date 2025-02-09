@@ -1,4 +1,4 @@
-<h1 align="center">Reserva Ecommerce Django Website</h1>
+<h1 align="center">Nova Infinitus Ecommerce Django Website</h1>
 <p align="center">
   <i>This machine learning model made in python utilizes supervised learning to predict the daily rental price for Airbnb properties!</i>
   <br/><br/>
