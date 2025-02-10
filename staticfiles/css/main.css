@@ -1426,7 +1426,7 @@ img {
     z-index: 998;
     height: 8.327rem;
     padding: 0 3.12rem;
-    background-color: white;
+    background-color: #0f0114;
     gap: 2rem;
     justify-content: center;
   }
@@ -1448,6 +1448,8 @@ img {
 @media (max-width: 59.375em) {
   .produtos__cabecalho-filtrar {
     display: block;
+    background-color: rgba(210, 8, 255);
+    color: #f6e6ff;
   }
 }
 .produtos__cabecalho-icone {
@@ -1472,6 +1474,8 @@ img {
 }
 @media (max-width: 59.375em) {
   .produtos__select {
+    background-color: rgba(210, 8, 255);
+    color: #f6e6ff;
     border-color: #626262;
   }
 }
@@ -2018,7 +2022,7 @@ img {
   top: 0;
   left: 0;
   transform: translate(10px, -50%);
-  background-color: #fff;
+  background-color: #0f0114;
   line-height: 1;
   padding: 0 0.3rem;
   font-size: 1.33rem;
@@ -2162,9 +2166,17 @@ img {
   justify-content: start;
   gap: 1rem;
 }
+
 .checkout__endereco-item {
   position: relative;
 }
+.checkout__endereco-item input {
+  border: 1px solid #eceaea9d;
+  border-radius: 4px;
+  background-color: transparent;
+  color: white;
+}
+
 .checkout__endereco--visivel {
   display: flex;
 }
