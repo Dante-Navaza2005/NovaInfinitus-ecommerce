@@ -1,4 +1,7 @@
 from .base import *
+import dj_database_url
+
+
 load_dotenv()
 
 DEBUG = False
@@ -28,14 +31,11 @@ CLOUDINARY_STORAGE = {
 }
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': 'roundhouse.proxy.rlwy.net',
-        'PORT': '26855',
-    }
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
