@@ -10,13 +10,13 @@ DEBUG = False
 ALLOWED_HOSTS = [
     'novainfinitus.up.railway.app',
     'novainfinitus.com',
-    'https://www.mercadopago.com.br/checkout/v1/payment/redirect/',
+    'mercadopago.com.br/checkout/v1/payment/redirect/',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://novainfinitus.up.railway.app',
     'https://novainfinitus.com',
-    'https://www.mercadopago.com.br/checkout/v1/payment/redirect/',
+    'https://www.mercadopago.com.br',
 ]
 
 INSTALLED_APPS += ['cloudinary_storage', 'cloudinary']
