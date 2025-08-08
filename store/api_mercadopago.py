@@ -7,12 +7,12 @@ load_dotenv()
 
 
 MERCADO_PUBLIC_KEY = os.getenv('MERCADO_PUBLIC_KEY')
-MERCADO_ACESS_TOKEN = os.getenv('MERCADO_ACESS_TOKEN')
+MERCADO_ACCESS_TOKEN = os.getenv('MERCADO_ACCESS_TOKEN')
 
 
 def create_payment(items_ordered, link):
     # Configure suas credenciais
-    sdk = mercadopago.SDK(MERCADO_ACESS_TOKEN)  # Validando access token
+    sdk = mercadopago.SDK(MERCADO_ACCESS_TOKEN)  # Validando access token
 
     # Items que o usuário está comprando
     items = []
